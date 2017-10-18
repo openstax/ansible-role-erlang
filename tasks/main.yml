@@ -1,0 +1,24 @@
+---
+- name: "install Erlang when version is defined"
+  become: yes
+  apt:
+    name: "erlang{{erlang_suffix }}={{ erlang_version }}"
+    update_cache: yes
+  when:
+    - erlang_version is defined
+  tags:
+    - erlang
+    - erlang-install
+
+- name: install Erlang at latest
+  become: yes
+  apt:
+    name: "erlang{{ erlang_suffix }}"
+    update_cache: yes
+    state: latest
+  when:
+     - erlang_version is undefined
+  tags:
+    - erlang
+    - erlang-install
+
